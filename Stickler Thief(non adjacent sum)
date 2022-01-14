@@ -1,0 +1,11 @@
+int FindMaxSum(int arr[], int n)
+    {
+        // Your code here
+        int newsum=0,cursum=0,presum=0;
+        for(int i=0;i<n;i++){
+            newsum=max(cursum,presum);
+            cursum=arr[i]+presum;
+            presum=newsum;
+        }
+        return max(presum,cursum);
+    }
