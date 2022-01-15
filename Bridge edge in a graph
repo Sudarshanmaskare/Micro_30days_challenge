@@ -1,0 +1,24 @@
+void dfs(vector<int> adj[],vector<bool> &vis,int i){
+        vis[i]=true;
+        for(auto m:adj[i]){
+            if(!vis[m]) dfs(adj,vis,m);
+        }
+    }
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+        // Code here
+        for(int i=0;i<adj[c].size();i++){
+            if(adj[c][i]==d){
+                adj[c].erase(adj[c].begin()+i);
+            }
+        }
+        for(int i=0;i<adj[d].size();i++){
+            if(adj[d][i]==c){
+                adj[d].erase(adj[d].begin()+i);
+            }
+        }
+        vector<bool> vis(V,false);
+        dfs(adj,vis,c);
+        if(vis[d]) return 0;
+        return 1;
+    }
