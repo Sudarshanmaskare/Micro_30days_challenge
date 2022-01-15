@@ -1,0 +1,42 @@
+      string topologicalSort(vector<int> adj[], int V)
+{
+   vector<int> indegree(V,0);
+   for(int i=0;i<V;i++){
+       for(auto m:adj[i]) indegree[m]++;
+   }
+   queue<int> q;
+   for(int i=0;i<V;i++){
+      if(indegree[i]==0) q.push(i);
+   }
+   string res="";
+   while(q.size()){
+       int node=q.front();
+       q.pop();
+      res+=node+'a';
+      for(auto k:adj[node]){
+          indegree[k]--;
+          if(indegree[k]==0) q.push(k);
+      }
+   }
+   return res;
+}
+public:
+string findOrder(string words[], int N, int K) 
+{
+   vector<int> adj[K];
+   for(int i=0;i<N-1;i++){
+       
+       string  word1=words[i];
+       string word2=words[i+1];
+       
+       for(int j=0;j<min(word1.size(),word2.size());j++){
+           
+           if(word1[j]!=word2[j]){
+               adj[word1[j]-'a'].push_back(word2[j]-'a');
+               break;
+           }
+       }
+   } 
+    
+    return topologicalSort(adj, K);
+}
