@@ -1,0 +1,32 @@
+class Solution {
+    public:
+    int solve(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D, int target) {
+        int a = A.size();
+        int b = B.size();
+        int c = C.size();
+        int d = D.size();
+        vector<int> E;
+        for (int i = 0; i < a; i++) {
+            for (int j = 0; j < b; j++) {
+                E.push_back(A[i] + B[j]);
+            }
+        }
+
+        sort(E.begin(), E.end());
+        int ans = 0, sum_ab = 0, sum_cd = 0;
+
+        for (auto i = 0; i < c; i++) {
+            for (auto j = 0; j < d; j++) {
+                sum_cd = C[i] + D[j];
+                sum_ab = target - sum_cd;
+                ans += upper_bound(E.begin(), E.end(), sum_ab) - E.begin();
+            }
+        }
+
+        return abs(ans);
+    }
+};
+
+int solve(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D, int target) {
+    return (new Solution())->solve(A, B, C, D, target);
+}
